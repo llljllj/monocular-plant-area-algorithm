@@ -3,12 +3,16 @@
     目的是根据npz文件里的相机内参矩阵，和相机畸变系数，计算出相机的平移矩阵和旋转向量
     solvepnp算法需要的就是相机内参矩阵和相机畸变系数
 """
+import os
 import cv2
 import numpy as np
 import refactor_utils as utils
 
 class CalibrationProcessor:
-    def __init__(self,camera_params_path="camera_params.npz",checkerboard_size=(9,6),checkerboard_gap=1.0):
+    def __init__(self,camera_params_path=None,checkerboard_size=(9,6),checkerboard_gap=1.0):
+        if camera_params_path is None:
+            base_dir = os.path.dirname(os.path.abspath(__file__))
+            camera_params_path = os.path.join(base_dir, "camera_params.npz")
         self.checkerboard = checkerboard_size
         self.square_size = checkerboard_gap # 设定好棋盘格在现实世界中的实际距离，做理想针孔相机映射
         
@@ -79,5 +83,3 @@ class CalibrationProcessor:
 if __name__ == "__main__":
     caliuitls = CalibrationProcessor("camera_params.npz",checkerboard_size=(9,6),checkerboard_gap=1.0)
     caliuitls.two_pic_position_detection()
-    
-        

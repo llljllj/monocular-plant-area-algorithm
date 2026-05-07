@@ -84,7 +84,10 @@ def find_chessboard_corners(img,chessboard_size=(9,6),visualize = True):
 
     return _ , corners , img
 
-# 计算单应矩阵的函数和将像素坐标转换为世界坐标的函数，使用单应矩阵将第二帧图像变换到第一帧图像的视角的函数，以及一个测试函数来验证位置检测的准确性。
+'''
+计算单应矩阵的函数和将像素坐标转换为世界坐标的函数，使用单应矩阵将第二帧图像变换到第一帧图像的视角的函数，以及一个测试函数来验证位置检测的准确性。
+返回一个包含单应矩阵的函数 find_H_world_from_img，以及一个将像素坐标转换为世界坐标并计算面积的函数 contour_maskarea_world，还有一个将第二帧图像变换到第一帧图像视角的函数 transform_pose，以及一个测试函数 two_pic_position_detection 来验证位置检测的准确性。
+'''
 def find_H_world_from_img(corners,checkerboard_size=(9,6),checkerboard_gap=1.0):
     objp = np.zeros((checkerboard_size[0]*checkerboard_size[1],3),dtype=np.float32)
     objp[:,:2] = np.mgrid[0:checkerboard_size[0],0:checkerboard_size[1]].T.reshape(-1,2)*checkerboard_gap
